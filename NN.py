@@ -169,6 +169,10 @@ plt.show()
 #While in other sports, sport prediction may lead to greater accuracy, in the UFC, the highly volatile nature of the sport leaves to much unpredictabily, making this an acceptable result
 
 
-#Surprising results from the data indicate that fighter Reach doesn't greatly improve the model and a background in muay thai or being a freestyle fighter are by far the greatest predictors of the fight result
+#Surprising results from the data (based off of trial and error with the neural network and R output) indicate that fighter Reach doesn't greatly improve the model and a background in muay thai or being a freestyle fighter are by far the greatest predictors of the fight result
 
 #Future goal is to produce data on fight by fight UFC winning streaks, losing streaks, and total UFC experience
+
+#If we have an interest in reviewing the weights and biases of the network we can used the following:
+#weights = model.layers[0].get_weights()[0]
+#biases = model.layers[0].get_weights()[1]
