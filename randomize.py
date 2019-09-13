@@ -1,6 +1,7 @@
 #this file will be used to randomize the historical data set which includes the results from compiling win/loss history with streaks and types of wins included
 
 import pandas as pd
+import random
 
 #first we will import the dataset
 filepath = "/Users/Ryan/Desktop/Apps/AFreshStart/historical.csv"
