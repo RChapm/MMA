@@ -77,7 +77,7 @@ df.to_csv('Rprepped.csv')
 #this first dataframe was the model I used initially. The sheer number of inputs made the neural network fairly unreliable so after running basic correlations in R I settled on the variables in the following dataframe.
 #df1 = df[['Age','Reach', 'Height', 'SLpM__B', 'SLpM__R', 'TDAvg__B', 'TDAvg__R', 'StrDef__B', 'StrDef__R', 'SubAvg__B', 'SubAvg__R', 'StrAcc__B', 'StrAcc__R', 'TDAcc__B', 'TDAcc__R', 'Weight', 'Stance_B__Orthodox', 'Stance_B__Southpaw', 'Stance_B__Switch','Stance_R__Orthodox', 'Stance_R__Southpaw', 'Stance_R__Switch', "B_Wrestling", "R_Wrestling", "B_BJJ", 'R_BJJ', 'B_Boxing', 'R_Boxing', 'R_Kickboxing', 'B_Kickboxing','B_MuayTai', 'R_MuayTai', 'B_Freestyle', 'R_Freestyle', 'B_Sambo', 'R_Sambo', 'B_Karate', 'R_Karate', 'B_Judo', 'R_Judo', 'result']]
 
-#selecting Age, Reach, Weight, strike/min, takedown avg, and stance for analysis dataframe
+#selecting Age, Weight, strike/min, takedown avg, and stance for analysis dataframe
 df1 = df[['Age', 'B_Age', 'SApM__R', 'TDAvg__B', 'TDAvg__R', 'TDAcc__B', 'TDAcc__R', 'StrAcc__R', 'StrAcc__B', 'B_Freestyle', 'TDDef__R', 'TDDef__B', 'SApM__B', 'StrDef__R', 'SLpM__B', 'SLpM__R', 'StrDef__B', 'R_Freestyle', 'R_MuayTai', 'B_MuayTai', 'result']]
 #print(df1.head())
 
