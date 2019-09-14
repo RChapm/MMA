@@ -13,8 +13,8 @@ def swap(rownuma,rownumb,colnamea,colnameb):
   df.set_value(row[0],colnameb, f)
 
 for row in df.itertuples():
-  flip = random.randint(0, 1)
-  if (flip == 1):
+  flip = random.randint(1, 4)
+  if (flip == 1)|(flip==3):
     swap(5,6,'f1name','f2name')
     swap(7,8,'f1result','f2result')
     swap(9,10,'f1fid','f2fid')
