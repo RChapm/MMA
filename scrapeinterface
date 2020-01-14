@@ -1,0 +1,162 @@
+#%matplotlib notebook
+
+from bs4 import BeautifulSoup
+from urllib.error import URLError
+import urllib, sqlite3, time, traceback
+from urllib.request import urlopen
+from urllib.parse import urlparse
+import datetime
+import re
+
+try:
+
+    url1 = urlopen(input("What is fighter 1's url including the https jazz?: "))
+
+except URLError:
+
+    print("Yo 1st link don't work")
+
+else:
+
+    html1 = BeautifulSoup(url1.read(),'html.parser')
+
+    tags1 = html1.find_all('i',"b-list__box-item-title b-list__box-item-title_type_width")
+    list1 = []
+    for tag in tags1:
+        print(tag.next_sibling)
+        list1.append(tag.next_sibling.strip())
+
+
+    tags12 = html1.find_all('i',"b-list__box-item-title b-list__box-item-title_font_lowercase b-list__box-item-title_type_width")
+    for tag in tags12:
+        print(tag.next_sibling)
+        list1.append(tag.next_sibling.strip())
+
+    tags13 = html1.find_all('i',"b-flag__text")
+    result_list1 = []
+    for tag in tags13:
+        result_list1.append(tag.text.strip())
+        print(tag.text.strip())
+
+    tags14 = html1.find_all(string=[re.compile("SUB"),re.compile("KO"),re.compile("DEC")])
+    method_list1 = []
+    for tag in tags14:
+        method_list1.append(tag.strip())
+        print(tag.strip())
+
+result_method_1 = list(zip(result_list1, method_list1))
+print(result_method_1)
+ws1 = 0
+wd = 0
+ld = 0
+dl1 = 0
+dd = 0
+sd = 0
+kd = 0
+for result in result_list1:
+    if result == 'win':
+        ws1 += 1
+    else:
+        break
+
+for item in result_method_1:
+    if item[0] == 'loss':
+        ld += 1
+        if 'DEC' in item[1]:
+            dl1 += 1
+            dd -= 1
+        elif 'KO' in item[1]:
+            kd -= 1
+        elif 'SUB' in item[1]:
+            sd -= 1
+    elif item[0] == 'win':
+        wd += 1
+        if 'DEC' in item[1]:
+            dd += 1
+        elif 'KO' in item[1]:
+            kd += 1
+        elif 'SUB' in item[1]:
+            sd += 1
+
+r = float(list1[2][:-1])
+o1 = float((datetime.datetime.now() - datetime.datetime.strptime(list1[4], '%b %d, %Y')).days/365.25)
+sl1 = float(list1[6])
+sa1 = float(list1[7][:-1]) * 0.01
+sat1 = float(list1[8])
+sd1 = float(list1[9][:-1]) * 0.01
+td1 = float(list1[10])
+tda1 = float(list1[11][:-1]) * 0.01
+tdd1 = float(list1[12][:-1]) * 0.01
+
+try:
+
+    url2 = urlopen(input("What is fighter 2's url including the https jazz?: "))
+
+except URLError:
+
+    print("Yo 2nd link don't work")
+
+else:
+
+    html2 = BeautifulSoup(url2.read(),'html.parser')
+
+    tags2 = html2.find_all('i',"b-list__box-item-title b-list__box-item-title_type_width")
+    list2 = []
+    for tag in tags2:
+        print(tag.next_sibling)
+        list2.append(tag.next_sibling.strip())
+
+    tags22 = html2.find_all('i',"b-list__box-item-title b-list__box-item-title_font_lowercase b-list__box-item-title_type_width")
+    for tag in tags22:
+        print(tag.next_sibling)
+        list2.append(tag.next_sibling.strip())
+
+    tags23 = html2.find_all('i',"b-flag__text")
+    result_list2 = []
+    for tag in tags23:
+        print(tag.text.strip())
+
+    tags24 = html2.find_all(string=[re.compile("SUB"),re.compile("KO"),re.compile("DEC")])
+    method_list2 = []
+    for tag in tags24:
+        method_list2.append(tag.strip())
+        print(tag.strip())
+
+result_method_2 = list(zip(result_list2, method_list2))
+print(result_method_2)
+ws2 = 0
+for result in result_list2:
+    if result == 'win':
+        ws2 += 1
+    else:
+        break
+for item in result_method_2:
+    if item[0] == 'loss':
+        ld -= 1
+        if 'DEC' in item[1]:
+            dd += 1
+        elif 'KO' in item[1]:
+            kd += 1
+        elif 'SUB' in item[1]:
+            sd += 1
+    elif item[0] == 'win':
+        wd -= 1
+        if 'DEC' in item[1]:
+            dd -= 1
+        elif 'KO' in item[1]:
+            kd -= 1
+        elif 'SUB' in item[1]:
+            sd -= 1
+
+r = r - float(list2[2][:-1])
+o2 = float((datetime.datetime.now() - datetime.datetime.strptime(list2[4], '%b %d, %Y')).days/365.25)
+sl2 = float(list2[6])
+sa2 = float(list2[7][:-1]) * 0.01
+sat2 = float(list2[8])
+sd2 = float(list2[9][:-1]) * 0.01
+td2 = float(list2[10])
+tda2 = float(list2[11][:-1]) * 0.01
+tdd2 = float(list2[12][:-1]) * 0.01
+
+list_forNN = [r,o1,o2,dl1,dd,sd,kd,wd,ld,ws1,ws2,sl1,sa1,sat1,sd1,td1,tda1,tdd1,sl2,sa2,sat2,sd2,td2,tda2,tdd2]
+print(list_forNN)
