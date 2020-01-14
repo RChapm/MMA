@@ -86,17 +86,17 @@ df.to_csv('Rprepped2.csv')
 
 #selecting inputs for the predictive model
 #df1 = df[['Age', 'Reach','f1fights', 'f1w', 'f1l', 'f1fws' ,'f1ls','f2fights','f2w', 'f2l', 'f2fws', 'f2ls', 'f1SubW','f1KOW','f1DecW','f1SubL','f1KOL','f1DecL','f2SubW','f2KOW' ,'f2DecW','f2SubL','f2KOL' ,'f2DecL','SLpM_1' , 'Str. Acc_1' , 'SApM_1',  'Str. Def_1',  'TD Avg_1',  'TD Acc_1'  ,'TD Def_1',  'Sub. Avg_1','SLpM_2'  ,'Str. Acc_2'  ,'SApM_2'  ,'Str. Def_2'  ,'TD Avg_2'  ,'TD Acc_2'  ,'TD Def_2'  ,'Sub. Avg_2' ,'f1Age' , 'result']]
-df1 = df[['Reach', 'f1Age','f2Age','weight','f1DecL', 'decexp','subexp','KOexp','windif','lossdif', 'f1fws' , 'f2fws','SLpM_1' , 'Str. Acc_1' , 'SApM_1',  'Str. Def_1',  'TD Avg_1', 'TD Acc_1'  ,'TD Def_1', 'SLpM_2'  ,'Str. Acc_2'  ,'SApM_2'  ,'Str. Def_2'  ,'TD Avg_2'  ,'TD Acc_2'  ,'TD Def_2', 'result']]
+df1 = df[['Reach', 'f1Age','f2Age','f1DecL', 'decexp','subexp','KOexp','windif','lossdif', 'f1fws' , 'f2fws','SLpM_1' , 'Str. Acc_1' , 'SApM_1',  'Str. Def_1',  'TD Avg_1', 'TD Acc_1'  ,'TD Def_1', 'SLpM_2'  ,'Str. Acc_2'  ,'SApM_2'  ,'Str. Def_2'  ,'TD Avg_2'  ,'TD Acc_2'  ,'TD Def_2', 'result']]
 
 
 #making an array
 dataset = df1.values
 
 #setting input array(all rows, columns 0-26 (non inclusive))
-X = dataset[:,0:26]
+X = dataset[:,0:25]
 
 #setting output array (all rows, column 26)
-Y = dataset[:,26]
+Y = dataset[:,25]
 
 #Because data has different types of input ranges, we should scale it from 0-1
 #This allows the neural network to determine which parameters are most significant on its own.
@@ -126,7 +126,7 @@ print(X_train.shape, X_val.shape, X_test.shape, Y_train.shape, Y_val.shape, Y_te
 
 #we are going to now set up 1 hidden layer with 40 neurons(ReLu) and 1 ouput(sigmoid)
 #we will use sequential model which means we describe the layers in sequence below
-model = Sequential([  Dense(40, activation='relu', input_shape=(26,)), Dense(1, activation='sigmoid')])
+model = Sequential([  Dense(40, activation='relu', input_shape=(25,)), Dense(1, activation='sigmoid')])
 
 #Below is an alternative model in which I experimented with regularization and extra hidden layers
 #model = Sequential([   Dense(20, activation='relu', kernel_regularizer=regularizers.l2(0.01), input_shape=(28,)),    Dropout(0.3),    Dense(20, activation='relu', kernel_regularizer=regularizers.l2(0.01)), Dropout(0.3),    Dense(20, activation='relu', kernel_regularizer=regularizers.l2(0.01)),   Dropout(0.3),    Dense(1, activation='sigmoid', kernel_regularizer=regularizers.l2(0.01)),])
@@ -178,3 +178,11 @@ plt.show()
 #If we have an interest in reviewing the weights and biases of the network we can used the following:
 #weights = model.layers[0].get_weights()[0]
 #biases = model.layers[0].get_weights()[1]
+
+
+#If you want to use the model for prediction use the following code
+#fighttest = np.array([**list prepared from scrapeinterface**])
+#print(type(fighttest))
+#print(fighttest.shape)
+#winner = model.predict(fighttest)
+#print(winner)
